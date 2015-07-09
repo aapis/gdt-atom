@@ -1,14 +1,14 @@
 {
-  "name": "test",
+  "name": "gdt-atom",
   "main": "./lib/test",
   "version": "0.0.0",
-  "description": "A short description of your package",
+  "description": "granify-dev-tools package for the Atom editor",
   "keywords": [
   ],
   "activationCommands": {
     "atom-workspace": "test:toggle"
   },
-  "repository": "https://github.com/atom/test",
+  "repository": "https://github.com/aapis/gdt-atom",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"

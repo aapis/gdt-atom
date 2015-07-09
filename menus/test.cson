@@ -10,12 +10,63 @@
   {
     'label': 'Packages'
     'submenu': [
-      'label': 'test'
+      'label': 'Granify'
       'submenu': [
         {
-          'label': 'Toggle'
-          'command': 'test:toggle'
-        }
+          'label': 'Github',
+          'submenu': [
+            {
+              'label': 'Merged Today'
+              'command': 'granify:github_merged_today'
+            },
+            {
+              'label': 'Merged On'
+              'command': 'granify:github_merged_on'
+            },
+            {
+              'label': 'Merged Between'
+              'command': 'granify:github_merged_between'
+            },
+          ]
+        },
+        {
+          'label': 'Syncing'
+          'submenu': [
+            {
+              'label': 'Recompile'
+              'command': 'granify:recompile'
+            },
+            {
+              'label': 'Resync'
+              'command': 'granify:resync'
+            },
+          ]
+        },
+        {
+          'label': 'Startup'
+          'command': 'granify:startup'
+        },
+        {
+          'label': 'Test',
+          'submenu': [
+            {
+              'label': 'Granify'
+              'command': 'granify:test_granify'
+            },
+            {
+              'label': 'Goliath'
+              'command': 'granify:test_goliath'
+            },
+            {
+              'label': 'JS'
+              'command': 'granify:test_js'
+            },
+          ]
+        },
+        {
+          'label': 'Working On'
+          'command': 'granify:workingon'
+        },
       ]
     ]
   }
