@@ -34,17 +34,17 @@
           'submenu': [
             {
               'label': 'Recompile'
-              'command': 'granify:recompile'
+              'command': 'granify:granify_recompile'
             },
             {
               'label': 'Resync'
-              'command': 'granify:resync'
+              'command': 'granify:granify_resync'
             },
           ]
         },
         {
           'label': 'Startup'
-          'command': 'granify:startup'
+          'command': 'granify:granify_startup'
         },
         {
           'label': 'Test',
@@ -65,7 +65,11 @@
         },
         {
           'label': 'Working On'
-          'command': 'granify:workingon'
+          'command': 'granify:granify_workingon'
+        },
+        {
+          'label': 'Testing'
+          'command': 'granify:granify_testing'
         },
       ]
     ]

@@ -1,15 +1,11 @@
-TestView = require './hadoken'
 {CompositeDisposable} = require 'atom'
 
 module.exports =
-  testView: null
-  modalPanel: null
   subscriptions: null
   controller: null
 
   activate: (state) ->
-    @testView = new TestView(state.testViewState)
-    @modalPanel = atom.workspace.addModalPanel(item: @testView.getElement(), visible: false)
+    # global command namespace
     @namespace = "granify"
 
     # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
@@ -19,55 +15,36 @@ module.exports =
       "github_merged_today",
       "github_merged_on",
       "github_merged_between",
-      "recompile",
-      "resync",
-      "startup",
+      "granify_recompile",
+      "granify_resync",
+      "granify_startup",
+      "granify_workingon",
+      "granify_toggle",
       "test_granify",
       "test_goliath",
-      "test_js",
-      "workingon"
+      "test_js"
     ]
 
+    # bind the above commands to their respective functions
     @load(commands)
 
-    commands.forEach((cmd) =>
-      # Register command that toggles this view
-      atom_cmd = @namespace + ":" + cmd
-
-      if @controller[cmd]
-        @subscriptions.add(atom.commands.add('atom-workspace', atom_cmd: => @controller[cmd]))
-      else
-        console.error("CMD NOT FOUND: ", atom_cmd)
-    )
-
   deactivate: ->
-    @modalPanel.destroy()
     @subscriptions.dispose()
-    @testView.destroy()
 
   load: (commands) ->
-    commands.forEach((cmd) => 
+    commands.forEach((cmd) =>
       chunks = cmd.split("_")
-      is_namespaced = chunks.length > 1
+      atom_cmd = @namespace + ":" + cmd
+      lib = require './'+ chunks[0]
 
-      if is_namespaced
-        path = './'+ chunks[0]
-        lib = require [path]
-        console.log(lib)
-        # namespace = cmd.split("_")[0]
-        # @controller = new lib()
+      # remove command namespace to get the raw method name
+      chunks.shift()
+      method = chunks.join('_')
+      instance = new lib()
+
+      if typeof instance[method] == 'function'
+        @subscriptions.add(atom.commands.add('atom-workspace', atom_cmd: -> instance[method](14)))
       else
-        lib = require './granify'
-        @controller = new lib()
+        console.error('Method not found: ', method, atom_cmd)
     )
-
-  serialize: ->
-    testViewState: @testView.serialize()
-
-  toggle: ->
-    console.log 'Test was toggled!'
-
-    if @modalPanel.isVisible()
-      @modalPanel.hide()
-    else
-      @modalPanel.show()
+    atom.menu.update()
