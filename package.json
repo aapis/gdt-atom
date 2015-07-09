@@ -1,6 +1,6 @@
 {
   "name": "gdt-atom",
-  "main": "./lib/test",
+  "main": "./lib/granify",
   "version": "0.0.0",
   "description": "granify-dev-tools package for the Atom editor",
   "keywords": [
